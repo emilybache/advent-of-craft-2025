@@ -15,7 +15,7 @@ class SantaCommunicatorTest {
 
     @BeforeEach
     void setup() {
-        this.communicator = new SantaCommunicator(numberOfDaysToRest);
+        this.communicator = new SantaCommunicator(numberOfDaysToRest, logger);
     }
 
     @Test
@@ -30,8 +30,8 @@ class SantaCommunicatorTest {
                 DASHER,
                 NORTH_POLE,
                 numberOfDayBeforeChristmas,
-                numberOfDayBeforeChristmas,
-                logger);
+                numberOfDayBeforeChristmas
+        );
 
         assertThat(overdue).isTrue();
         assertThat(logger.getLog())
@@ -45,8 +45,8 @@ class SantaCommunicatorTest {
                         DASHER,
                         NORTH_POLE,
                         numberOfDayBeforeChristmas - numberOfDaysToRest - 1,
-                        numberOfDayBeforeChristmas,
-                        logger)
+                        numberOfDayBeforeChristmas
+                )
         ).isFalse();
     }
 }
