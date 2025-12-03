@@ -3,10 +3,10 @@
 public class Child
 {
     public string Name { get; }
-    public string Behavior { get; }
+    public BehaviorType Behavior { get; }
     public List<Toy> Wishlist { get; private set; }
 
-    public Child(string name, string behavior)
+    public Child(string name, BehaviorType behavior)
     {
         Name = name;
         Behavior = behavior;
@@ -15,4 +15,20 @@ public class Child
 
     public void SetWishList(Toy firstChoice, Toy secondChoice, Toy thirdChoice)
         => Wishlist = [firstChoice, secondChoice, thirdChoice];
+
+    public Toy? getToy() 
+        => Behavior switch
+        {
+            BehaviorType.NAUGHTY => Wishlist[^1],
+            BehaviorType.NICE => Wishlist[1],
+            BehaviorType.VERY_NICE => Wishlist[0],
+            _ => null
+        };
+}
+
+public enum BehaviorType
+{
+    NAUGHTY,
+    NICE,
+    VERY_NICE
 }
