@@ -22,10 +22,8 @@ public class Pipeline {
         var deployStep = new DeployStep("deploy", log);
         var reportStep = new ReportStep("report", log, emailer, config);
 
-        var testResult = testStep.run(project, pipelineStatus);
-        pipelineStatus.reportTestResults(testResult);
-        var deployResult = deployStep.run(project, pipelineStatus);
-        pipelineStatus.reportDeployResults(deployResult);
+        testStep.run(project, pipelineStatus);
+        deployStep.run(project, pipelineStatus);
         reportStep.run(pipelineStatus);
     }
 

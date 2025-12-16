@@ -19,6 +19,8 @@ public record TestStep(String name, Logger log) implements PipelineStep {
             log.info("No tests");
             testsPassed = true;
         }
-        return new TestStepResult(testsPassed);
+        TestStepResult testStepResult = new TestStepResult(testsPassed);
+        pipelineStatus.reportTestResults(testStepResult);
+        return testStepResult;
     }
 }

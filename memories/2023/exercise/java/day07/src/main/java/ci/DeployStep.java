@@ -18,6 +18,8 @@ public record DeployStep(String name, Logger log) implements PipelineStep {
         } else {
             deploySuccessful = false;
         }
-        return new DeployStepResult(deploySuccessful);
+        DeployStepResult deployStepResult = new DeployStepResult(deploySuccessful);
+        pipelineStatus.reportDeployResults(deployStepResult);
+        return deployStepResult;
     }
 }
