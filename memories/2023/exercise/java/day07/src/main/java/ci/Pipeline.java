@@ -5,6 +5,8 @@ import ci.dependencies.Emailer;
 import ci.dependencies.Logger;
 import ci.dependencies.Project;
 
+import java.util.List;
+
 public class Pipeline {
     private final Config config;
     private final Emailer emailer;
@@ -22,9 +24,12 @@ public class Pipeline {
         var deployStep = new DeployStep("deploy", log);
         var reportStep = new ReportStep("report", log, emailer, config);
 
-        testStep.run(project, pipelineStatus);
-        deployStep.run(project, pipelineStatus);
-        reportStep.run(project, pipelineStatus);
+        var steps = List.of(
+                testStep, deployStep, reportStep
+        );
+        for (var step: steps) {
+            step.run(project, pipelineStatus);
+        }
     }
 
 }
