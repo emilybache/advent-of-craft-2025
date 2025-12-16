@@ -5,7 +5,7 @@ import ci.dependencies.Project;
 
 public record TestStep(String name, Logger log) implements PipelineStep {
 
-    void run(Project project, PipelineStatus pipelineStatus) {
+    public void run(Project project, PipelineStatus pipelineStatus) {
         boolean testsPassed;
         if (project.hasTests()) {
             if ("success".equals(project.runTests())) {

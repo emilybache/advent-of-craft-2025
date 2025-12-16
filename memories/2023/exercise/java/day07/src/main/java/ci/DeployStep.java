@@ -4,7 +4,7 @@ import ci.dependencies.Logger;
 import ci.dependencies.Project;
 
 public record DeployStep(String name, Logger log) implements PipelineStep {
-    void run(Project project, PipelineStatus pipelineStatus) {
+    public void run(Project project, PipelineStatus pipelineStatus) {
         boolean deploySuccessful;
         var testStepResult = pipelineStatus.getTestStepResult();
         if (testStepResult.testsPassed()) {
