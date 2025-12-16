@@ -3,7 +3,7 @@ package ci;
 import ci.dependencies.Logger;
 import ci.dependencies.Project;
 
-public record TestStep(Logger log) implements PipelineStep {
+public record TestStep(String name, Logger log) implements PipelineStep {
 
     TestStepResult run(Project project) {
         boolean testsPassed;

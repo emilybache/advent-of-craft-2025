@@ -3,7 +3,7 @@ package ci;
 import ci.dependencies.Logger;
 import ci.dependencies.Project;
 
-public record DeployStep(Logger log) implements PipelineStep {
+public record DeployStep(String name, Logger log) implements PipelineStep {
     DeployStepResult run(Project project, TestStepResult result) {
         boolean deploySuccessful;
         if (result.testsPassed()) {

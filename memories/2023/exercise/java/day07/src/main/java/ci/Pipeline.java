@@ -17,13 +17,13 @@ public class Pipeline {
     }
 
     public void run(Project project) {
-        var testStep = new TestStep(log);
-        var deployStep = new DeployStep(log);
-        var reportStep = new ReportStep(log, emailer, config);
+        var testStep = new TestStep("tests", log);
+        var deployStep = new DeployStep("deploy", log);
+        var reportStep = new ReportStep("report", log, emailer, config);
 
-        var result = testStep.run(project);
-        var deployResult = deployStep.run(project, result);
-        reportStep.run(result, deployResult);
+        var testResult = testStep.run(project);
+        var deployResult = deployStep.run(project, testResult);
+        reportStep.run(testResult, deployResult);
     }
 
 }
