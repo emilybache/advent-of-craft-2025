@@ -3,8 +3,9 @@ package ci;
 import ci.dependencies.Logger;
 import ci.dependencies.Project;
 
-public record TestStep() {
-    TestStepResult doTestStep(Project project, Logger log) {
+public record TestStep(Logger log) implements PipelineStep {
+
+    TestStepResult run(Project project) {
         boolean testsPassed;
         if (project.hasTests()) {
             if ("success".equals(project.runTests())) {

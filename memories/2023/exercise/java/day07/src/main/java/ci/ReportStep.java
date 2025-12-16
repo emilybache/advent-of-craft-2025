@@ -4,8 +4,8 @@ import ci.dependencies.Config;
 import ci.dependencies.Emailer;
 import ci.dependencies.Logger;
 
-public record ReportStep() {
-    void doReportStep(TestStepResult result, DeployStepResult deployResult, Logger log, Emailer emailer, Config config) {
+public record ReportStep(Logger log, Emailer emailer, Config config) implements PipelineStep {
+    ReportStepResult run(TestStepResult result, DeployStepResult deployResult) {
         if (config.sendEmailSummary()) {
             log.info("Sending email");
             if (result.testsPassed()) {
@@ -20,5 +20,6 @@ public record ReportStep() {
         } else {
             log.info("Email disabled");
         }
+        return new ReportStepResult();
     }
 }

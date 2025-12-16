@@ -1,4 +1,4 @@
 package ci;
 
-public record TestStepResult(boolean testsPassed) {
+public record TestStepResult(boolean testsPassed)  implements PipelineStepResult {
 }

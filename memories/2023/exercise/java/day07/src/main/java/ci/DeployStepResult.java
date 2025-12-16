@@ -1,4 +1,4 @@
 package ci;
 
-public record DeployStepResult(boolean deploySuccessful) {
+public record DeployStepResult(boolean deploySuccessful) implements PipelineStepResult {
 }

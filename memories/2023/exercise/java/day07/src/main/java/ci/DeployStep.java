@@ -3,8 +3,8 @@ package ci;
 import ci.dependencies.Logger;
 import ci.dependencies.Project;
 
-public record DeployStep() {
-    DeployStepResult doDeployStep(Project project, TestStepResult result, Logger log) {
+public record DeployStep(Logger log) implements PipelineStep {
+    DeployStepResult run(Project project, TestStepResult result) {
         boolean deploySuccessful;
         if (result.testsPassed()) {
             if ("success".equals(project.deploy())) {
