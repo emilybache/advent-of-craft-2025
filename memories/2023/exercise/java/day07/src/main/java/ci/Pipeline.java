@@ -24,7 +24,7 @@ public class Pipeline {
 
         testStep.run(project, pipelineStatus);
         deployStep.run(project, pipelineStatus);
-        reportStep.run(pipelineStatus);
+        reportStep.run(project, pipelineStatus);
     }
 
 }

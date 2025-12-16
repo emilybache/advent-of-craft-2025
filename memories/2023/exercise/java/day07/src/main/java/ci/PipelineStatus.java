@@ -7,6 +7,7 @@ import java.util.HashMap;
 public class PipelineStatus {
     TestStepResult testResults;
     private DeployStepResult deployResult;
+    private ReportStepResult reportStepResult;
 
     public void reportTestResults(TestStepResult testResults) {
         this.testResults = testResults;
@@ -22,5 +23,9 @@ public class PipelineStatus {
 
     public DeployStepResult getDeployResult() {
         return deployResult;
+    }
+
+    public void reportReportStepResult(ReportStepResult reportStepResult) {
+        this.reportStepResult = reportStepResult;
     }
 }
