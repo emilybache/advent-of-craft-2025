@@ -23,8 +23,10 @@ public class Pipeline {
         var reportStep = new ReportStep("report", log, emailer, config);
 
         var testResult = testStep.run(project, pipelineStatus);
-        var deployResult = deployStep.run(project, testResult, pipelineStatus);
-        reportStep.run(testResult, deployResult, pipelineStatus);
+        pipelineStatus.reportTestResults(testResult);
+        var deployResult = deployStep.run(project, pipelineStatus);
+        pipelineStatus.reportDeployResults(deployResult);
+        reportStep.run(pipelineStatus);
     }
 
 }

@@ -5,10 +5,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PipelineStatus {
-    private final HashMap<String, PipelineStepResult> results = new HashMap<>();
+    TestStepResult testResults;
+    private DeployStepResult deployResult;
 
-    public void reportStepResult(PipelineStep pipelineStep, PipelineStepResult result) {
-        results.put(pipelineStep.name(), result);
+    public void reportTestResults(TestStepResult testResults) {
+        this.testResults = testResults;
     }
 
+    public TestStepResult getTestStepResult() {
+        return this.testResults;
+    }
+
+    public void reportDeployResults(DeployStepResult deployResult) {
+        this.deployResult = deployResult;
+    }
+
+    public DeployStepResult getDeployResult() {
+        return deployResult;
+    }
 }
