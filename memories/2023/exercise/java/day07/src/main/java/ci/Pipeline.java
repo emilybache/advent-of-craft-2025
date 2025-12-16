@@ -17,9 +17,13 @@ public class Pipeline {
     }
 
     public void run(Project project) {
-        boolean testsPassed;
-        boolean deploySuccessful;
+        var result = doTestStep(project);
+        var deployResult = doDeployStep(project, result);
+        doReportStep(result, deployResult);
+    }
 
+    private TestStepResult doTestStep(Project project) {
+        boolean testsPassed;
         if (project.hasTests()) {
             if ("success".equals(project.runTests())) {
                 log.info("Tests passed");
@@ -32,8 +36,12 @@ public class Pipeline {
             log.info("No tests");
             testsPassed = true;
         }
+        return new TestStepResult(testsPassed);
+    }
 
-        if (testsPassed) {
+    private DeployStepResult doDeployStep(Project project, TestStepResult result) {
+        boolean deploySuccessful;
+        if (result.testsPassed()) {
             if ("success".equals(project.deploy())) {
                 log.info("Deployment successful");
                 deploySuccessful = true;
@@ -44,11 +52,14 @@ public class Pipeline {
         } else {
             deploySuccessful = false;
         }
+        return new DeployStepResult(deploySuccessful);
+    }
 
+    private void doReportStep(TestStepResult result, DeployStepResult deployResult) {
         if (config.sendEmailSummary()) {
             log.info("Sending email");
-            if (testsPassed) {
-                if (deploySuccessful) {
+            if (result.testsPassed()) {
+                if (deployResult.deploySuccessful()) {
                     emailer.send("Deployment completed successfully");
                 } else {
                     emailer.send("Deployment failed");
@@ -60,4 +71,5 @@ public class Pipeline {
             log.info("Email disabled");
         }
     }
+
 }
