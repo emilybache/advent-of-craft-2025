@@ -5,7 +5,7 @@ import ci.dependencies.Emailer;
 import ci.dependencies.Logger;
 
 public record ReportStep(String name, Logger log, Emailer emailer, Config config) implements PipelineStep {
-    ReportStepResult run(TestStepResult result, DeployStepResult deployResult) {
+    ReportStepResult run(TestStepResult result, DeployStepResult deployResult, PipelineStatus pipelineStatus) {
         if (config.sendEmailSummary()) {
             log.info("Sending email");
             if (result.testsPassed()) {
